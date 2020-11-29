@@ -11,14 +11,14 @@ def moves():
     allowed_characters = ['U', 'D', 'L', 'R']
     max_retry = 5
 
-    # Function: show error message
+    # Define error message
     def err(msg):
         print("Error times:", i + 1)
         print(msg)
         print("Retry times left:", max_retry - i - 1)
         print("\n")
 
-    # Function: Compare value
+    # Compare value
     def compare():
         comparison = new_position == original_position
         equal_arrays = comparison.all()
@@ -52,9 +52,9 @@ def moves():
         elif any(x not in allowed_characters for x in moves_lst):
             err("Directional characters only")
         else:
-            print("Planned moving steps:", moves_lst)
             break
 
+    print("Planned moving steps:", moves_lst)
     new_position = original_position
     for i in range(0, len(moves_lst)):
         if moves_lst[i] == 'U':
