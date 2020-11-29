@@ -1,6 +1,7 @@
 import numpy as np;
 
-def moves():
+
+def moves() -> object:
     # Define direction
     U = np.array([0, 1])
     D = np.array([0, -1])
@@ -45,4 +46,6 @@ def moves():
     else:
         print("Move away from the original position")
 
-moves()
+
+if __name__ == '__main__':
+    moves()
