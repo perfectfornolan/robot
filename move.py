@@ -1,34 +1,52 @@
 import numpy as np;
 import sys
 
+
 def moves():
     # Define direction
     direction_u = np.array([0, 1])
     direction_d = np.array([0, -1])
     direction_l = np.array([-1, 0])
     direction_r = np.array([1, 0])
-    max_retry = 6
+    allowed_characters = ['U', 'D', 'L', 'R']
+    max_retry = 5
+
+    # Define error message
+    def err(msg):
+        print("Error times:", i + 1)
+        print(msg)
+        print("Retry times left:", max_retry - i - 1)
+        print("\n")
+
     # Define original position
-    for i in range(0,max_retry):
+    for i in range(0, max_retry):
         try:
-            original_x, original_y = input("Enter numeric original position:").replace(',', ' ').split()
+            original_x, original_y = input("Enter numeric original position: ").replace(',', ' ').split()
             original_x = int(original_x)
             original_y = int(original_y)
             original_position = [original_x, original_y]
             print("Original position:", original_position)
             break
         except ValueError:
-            print("Error times:", i, "Please input two integer.","Retry times left:", max_retry-i-1)
-        if i == 5:
-            print("Error times:", i+1, "This program will be stopped here")
+            if i == max_retry - 1:
+                err("This program will be stopped here.")
+                sys.exit(1)
+            else:
+                err("Please enter TWO numbers")
+
+    # Define moving sequence
+    for i in range(0, max_retry):
+        moves_lst = input("Please enter the instruction. e.g. UDLR ").upper()
+        if i == max_retry - 1:
+            err("This program will be stopped here.")
             sys.exit(1)
+        elif any(x not in allowed_characters for x in moves_lst):
+            err("Directional characters only")
+        else:
+            break
 
-    # Define moving instruction
-    print("Please enter the instruction. e.g. UDLR")
-    moves_lst = input("Enter the instruction:")
-
-    # Ready to move
     print("Planned moving steps:", moves_lst)
+
     new_position = original_position
 
     # Calculate the new position
@@ -48,7 +66,7 @@ def moves():
             print("Step", i + 1, "New position:", new_position)
 
     # Compare final position to the original position
-    print("Final position", new_position)
+    print("Final position: ", new_position)
     comparison = new_position == original_position
     equal_arrays = comparison.all()
     if equal_arrays:
