@@ -1,13 +1,14 @@
 import numpy as np;
 import sys
 
-
 def moves():
     # Define direction
-    direction_u = np.array([0, 1])
-    direction_d = np.array([0, -1])
-    direction_l = np.array([-1, 0])
-    direction_r = np.array([1, 0])
+    dict_direction = {"U": np.array([0, 1]),
+                      "D": np.array([0, -1]),
+                      "L": np.array([-1, 0]),
+                      "R": np.array([1, 0])
+                      }
+
     allowed_characters = ['U', 'D', 'L', 'R']
     max_retry = 5
 
@@ -58,19 +59,20 @@ def moves():
     new_position = original_position
     for i in range(0, len(moves_lst)):
         if moves_lst[i] == 'U':
-            new_position = new_position + direction_u
+            new_position = new_position + dict_direction["U"]
 
         elif moves_lst[i] == 'D':
-            new_position = new_position + direction_d
+            new_position = new_position + dict_direction["D"]
 
         elif moves_lst[i] == 'L':
-            new_position = new_position + direction_l
+            new_position = new_position + dict_direction["L"]
 
         elif moves_lst[i] == 'R':
-            new_position = new_position + direction_r
+            new_position = new_position + dict_direction["R"]
         if i < (len(moves_lst) - 1):
             print("Step", i + 1, "New position:", new_position)
-        print("Final position: ", new_position)
+        if i == len(moves_lst) - 1:
+            print("Final position: ", new_position)
 
     # Compare final position to the original position
     compare()
