@@ -1,6 +1,6 @@
 import numpy as np;
 import sys
-
+import math
 
 class Robot:
     def moves():
@@ -27,6 +27,12 @@ class Robot:
                 print("Back to original position")
             else:
                 print("Move away from the original position")
+                distance()
+
+        # Function: Calculate distance between twp points
+        def distance():
+            length = (math.dist(original_position, new_position))
+            print("Distance: ", length)
 
         # Define original position
         for i in range(0, max_retry):
