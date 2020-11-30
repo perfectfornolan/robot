@@ -1,16 +1,12 @@
 import numpy as np;
 import sys
 import math
-
+import modu
 class Robot:
     def moves():
         # Define direction
-        dict_direction = {"U": np.array([0, 1]),
-                          "D": np.array([0, -1]),
-                          "L": np.array([-1, 0]),
-                          "R": np.array([1, 0])
-                          }
-        max_retry = 5
+        dict_direction = modu.dict()
+        max_retry = modu.max_retry()
 
         # Function: show error message
         def err(msg):
