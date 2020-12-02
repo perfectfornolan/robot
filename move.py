@@ -14,8 +14,8 @@ class Robot:
             for i in range(0, max_retry):
                 try:
                     original_x, original_y = input("Enter numeric original position: ").replace(',', ' ').split()
-                    new_position = original_position = [int(original_x), int(original_y)]
-                    position_list.append(new_position)
+                    original_position = [int(original_x), int(original_y)]
+                    position_list.append(original_position)
                     print("Original position:", original_position)
                     break
                 except ValueError:
@@ -25,7 +25,7 @@ class Robot:
                     else:
                         modu.err("Please enter TWO numbers", i, max_retry)
 
-            return new_position, original_position, position_list
+            return original_position, position_list
 
         # Define moving sequence
         def new_list():
@@ -42,10 +42,10 @@ class Robot:
             return moves_lst
 
         # Define the overall new moving position
-        def moving_route(new_position):
+        def moving_route():
             for i in range(0, len(moves_lst)):
                 if moves_lst[i] in dict_direction.keys():
-                    new_position = new_position + dict_direction[moves_lst[i]]
+                    new_position = original_position + dict_direction[moves_lst[i]]
                     position_list.append(new_position)
                 if i < (len(moves_lst) - 1):
                     print("Step", i + 1, "New position:", new_position)
@@ -53,12 +53,12 @@ class Robot:
                     print("Final position: ", new_position)
             return new_position
 
-        new_position, original_position, position_list = new_start()
+        original_position, position_list = new_start()
         moves_lst = new_list()
-        new_position = moving_route(new_position)
+        final_position = moving_route()
 
         # Compare final position to the original position
-        modu.compare(new_position, original_position)
+        modu.compare(final_position, original_position)
 
 
 if __name__ == '__main__':

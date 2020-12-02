@@ -19,10 +19,10 @@ def max_retry():
 
 
 # Function: Compare value
-def compare(new_position, original_position):
-    comparison = new_position == original_position
+def compare(final_position, original_position):
+    comparison = final_position == original_position
     equal_arrays = comparison.all()
-    distance(new_position, original_position)
+    distance(final_position, original_position)
     if equal_arrays:
         return print("Back to original position")
     else:
