@@ -27,8 +27,6 @@ class Robot:
 
             return new_position, original_position, position_list
 
-        new_position, original_position, position_list = new_start()
-
         # Define moving sequence
         def new_list():
             for i in range(0, max_retry):
@@ -43,10 +41,9 @@ class Robot:
                     break
             return moves_lst
 
-        moves_lst = new_list()
-
-        # Calculate new position
-        for i in range(0, len(moves_lst)):
+        # Define the overall new moving position
+        def moving_route(moves_lst, dict_direction, new_position):
+            for i in range(0, len(moves_lst)):
                 if moves_lst[i] in dict_direction.keys():
                     new_position = new_position + dict_direction[moves_lst[i]]
                     position_list.append(new_position)
@@ -54,6 +51,11 @@ class Robot:
                     print("Step", i + 1, "New position:", new_position)
                 else:
                     print("Final position: ", new_position)
+            return new_position
+
+        new_position, original_position, position_list = new_start()
+        moves_lst = new_list()
+        new_position = moving_route(moves_lst, dict_direction, new_position)
 
         # Compare final position to the original position
         modu.compare(new_position, original_position)
