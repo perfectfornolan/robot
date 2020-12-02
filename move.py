@@ -42,7 +42,7 @@ class Robot:
             return moves_lst
 
         # Define the overall new moving position
-        def moving_route(moves_lst, dict_direction, new_position):
+        def moving_route(new_position):
             for i in range(0, len(moves_lst)):
                 if moves_lst[i] in dict_direction.keys():
                     new_position = new_position + dict_direction[moves_lst[i]]
@@ -55,7 +55,7 @@ class Robot:
 
         new_position, original_position, position_list = new_start()
         moves_lst = new_list()
-        new_position = moving_route(moves_lst, dict_direction, new_position)
+        new_position = moving_route(new_position)
 
         # Compare final position to the original position
         modu.compare(new_position, original_position)
