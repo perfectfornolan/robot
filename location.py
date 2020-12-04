@@ -29,6 +29,5 @@ def new_start():
     return new_position, original_position, position_list
 
 
-
 if __name__ == '__main__':
     new_start()

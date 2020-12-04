@@ -1,7 +1,6 @@
 import sys
 import modu
 import location
-import numpy as np
 import pandas as pd
 import plotly.express as px
 
@@ -47,9 +46,8 @@ class Robot:
         print(route)
         route.to_csv('route.csv')
         fig = px.line(route, x='Axis: X', y='Axis: Y', title='Point')
-
-
         fig.show()
+
         # Compare final position to the original position
         modu.compare(final_position, original_position)
 
