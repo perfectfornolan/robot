@@ -1,5 +1,7 @@
 import sys
 import modu
+import pandas as pd
+import numpy as np
 
 # Define direction
 dict_direction = modu.dict_info()
@@ -13,7 +15,7 @@ def new_start():
     for i in range(0, max_retry):
         try:
             original_x, original_y = input("Enter numeric original position: ").replace(',', ' ').split()
-            original_position = [int(original_x), int(original_y)]
+            new_position = original_position = [int(original_x), int(original_y)]
             position_list.append(original_position)
             print("Original position:", original_position)
             break
@@ -24,7 +26,8 @@ def new_start():
             else:
                 modu.err("Please enter TWO numbers", i, max_retry)
 
-    return original_position, position_list
+    return new_position, original_position, position_list
+
 
 
 if __name__ == '__main__':

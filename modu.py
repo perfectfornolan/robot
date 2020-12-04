@@ -32,7 +32,7 @@ def compare(final_position, original_position):
 # Function: Calculate distance between twp points
 def distance(new_position, original_position):
     length = math.dist(new_position, original_position)
-    print("Distance: ", length)
+    print("Distance between the start and end point: ", length)
 
 
 # Function: error message
