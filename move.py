@@ -39,15 +39,22 @@ class Robot:
         final_position, position_list,step_list = moving_route(new_position, moves_lst)
 
         data_range = position_list
-        route = pd.DataFrame(data=data_range, columns=["Axis: X", "Axis: Y"])
+        route = pd.DataFrame(data=position_list, columns=["Axis: X", "Axis: Y"])
         step_list.insert(0, "-")
         route['Step'] = step_list
         print(route)
         route.to_csv('route.csv')
-
         # Compare final position to the original position
         modu.compare(final_position, original_position)
+        x_position_list = route["Axis: X"].values.tolist()
+        y_position_list = route["Axis: Y"].values.tolist()
+        length = len(x_position_list)-1
+        import matplotlib.pyplot as plt
+        for i in range(0,length):
+            plt.arrow(x_position_list[i], y_position_list[i], x_position_list[i+1]- x_position_list[i],y_position_list[i+1]- y_position_list[i], width=0.02, color="r")
 
+        plt.title("Testing")
+        plt.show()
         # fig = px.line(route, x='Axis: X', y='Axis: Y', title='Point')
         # fig.show()
 
