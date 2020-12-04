@@ -11,7 +11,7 @@ class Robot:
         max_retry = modu.max_retry()
         position_list = []
         new_position, original_position, position_list = location.new_start()
-
+        step_list = []
         # Define moving sequence
         def new_list():
             for i in range(0, max_retry):
@@ -32,24 +32,24 @@ class Robot:
                 if moves_lst[i] in dict_direction.keys():
                     new_position = new_position + dict_direction[moves_lst[i]]
                     position_list.append(new_position)
-                if i < (len(moves_lst) - 1):
-                    print("Step", i + 1, "New position:", new_position)
-                else:
-                    print("Final position: ", new_position)
-            return new_position, position_list
+                    step_list.append(moves_lst[i])
+            return new_position, position_list, step_list
 
         moves_lst = new_list()
-        final_position, position_list = moving_route(new_position, moves_lst)
+        final_position, position_list,step_list = moving_route(new_position, moves_lst)
 
-        route = pd.DataFrame(data=position_list, columns=["Axis: X", "Axis: Y"])
-
+        data_range = position_list
+        route = pd.DataFrame(data=data_range, columns=["Axis: X", "Axis: Y"])
+        step_list.insert(0, "-")
+        route['Step'] = step_list
         print(route)
         route.to_csv('route.csv')
-        fig = px.line(route, x='Axis: X', y='Axis: Y', title='Point')
-        fig.show()
 
         # Compare final position to the original position
         modu.compare(final_position, original_position)
+
+        # fig = px.line(route, x='Axis: X', y='Axis: Y', title='Point')
+        # fig.show()
 
 
 if __name__ == '__main__':
