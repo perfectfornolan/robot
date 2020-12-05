@@ -2,9 +2,12 @@ import sys
 import modu
 import location
 import pandas as pd
-import plotly.express as px
+import stringinput
+import matplotlib.pyplot as plt
+
 
 class Robot:
+
     def moves():
         # Define direction
         dict_direction = modu.dict_info()
@@ -13,9 +16,11 @@ class Robot:
         new_position, original_position, position_list = location.new_start()
         step_list = []
         # Define moving sequence
+
         def new_list():
             for i in range(0, max_retry):
-                moves_lst = input("Please enter the instruction. e.g. UDLR ").upper()
+                moves_lst = stringinput.wholestring()
+
                 if i == max_retry - 1:
                     modu.err("This program will be stopped here.", i, max_retry)
                     sys.exit(1)
@@ -38,25 +43,24 @@ class Robot:
         moves_lst = new_list()
         final_position, position_list,step_list = moving_route(new_position, moves_lst)
 
-        data_range = position_list
+        # output to csv file
         route = pd.DataFrame(data=position_list, columns=["Axis: X", "Axis: Y"])
         step_list.insert(0, "-")
         route['Step'] = step_list
         print(route)
         route.to_csv('route.csv')
+
         # Compare final position to the original position
         modu.compare(final_position, original_position)
+
+        # output graph
         x_position_list = route["Axis: X"].values.tolist()
         y_position_list = route["Axis: Y"].values.tolist()
         length = len(x_position_list)-1
-        import matplotlib.pyplot as plt
         for i in range(0,length):
             plt.arrow(x_position_list[i], y_position_list[i], x_position_list[i+1]- x_position_list[i],y_position_list[i+1]- y_position_list[i], width=0.02, color="r")
-
         plt.title("Testing")
         plt.show()
-        # fig = px.line(route, x='Axis: X', y='Axis: Y', title='Point')
-        # fig.show()
 
 
 if __name__ == '__main__':
