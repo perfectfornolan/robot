@@ -19,8 +19,8 @@ class Robot:
 
         def new_list():
             for i in range(0, max_retry):
-                moves_lst = stringinput.wholestring()
-
+                moves_lst = stringinput.wholestring().upper()
+                print(moves_lst)
                 if i == max_retry - 1:
                     modu.err("This program will be stopped here.", i, max_retry)
                     sys.exit(1)
@@ -50,18 +50,18 @@ class Robot:
         print(route)
         route.to_csv('route.csv')
 
-        # Compare final position to the original position
-        modu.compare(final_position, original_position)
-
-        # output graph
-        x_position_list = route["Axis: X"].values.tolist()
-        y_position_list = route["Axis: Y"].values.tolist()
-        length = len(x_position_list)-1
-        for i in range(0,length):
-            plt.arrow(x_position_list[i], y_position_list[i], x_position_list[i+1]- x_position_list[i],y_position_list[i+1]- y_position_list[i], width=0.02, color="r")
-        plt.title("Testing")
-        plt.show()
-
+        # # Compare final position to the original position
+        # modu.compare(final_position, original_position)
+        #
+        # # output graph
+        # x_position_list = route["Axis: X"].values.tolist()
+        # y_position_list = route["Axis: Y"].values.tolist()
+        # length = len(x_position_list)-1
+        # for i in range(0,length):
+        #     plt.arrow(x_position_list[i], y_position_list[i], x_position_list[i+1]- x_position_list[i],y_position_list[i+1]- y_position_list[i], width=0.02, color="r")
+        # plt.title("Testing")
+        # plt.show()
+        #
 
 if __name__ == '__main__':
     Robot.moves()
